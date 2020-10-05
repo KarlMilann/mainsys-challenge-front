@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable, Observer} from 'rxjs';
-import {User} from '../../model/models';
-import {UserService} from '../../services/authentication/user.service';
+import {User} from '../../../model/models';
+import {UserService} from '../../../services/authentication/user.service';
+import {Router} from '@angular/router';
 export  interface NonPrezTab {
   label: string;
   routerLink: string;
@@ -12,31 +13,35 @@ export  interface NonPrezTab {
   styleUrls: ['./tab-component.component.scss']
 })
 export class TabComponentComponent implements OnInit {
+
   public asyncTabs: Observable<NonPrezTab[]>;
 
-  constructor(private user: UserService) {
-    this.asyncTabs = new Observable<NonPrezTab[]>((observer: Observer<NonPrezTab[]>) => {
-      user.roles.indexOf('ROLE_ADMIN') ?
-      setTimeout(() => {
-        observer.next([
-          {label: 'My Sales', routerLink: 'my-sales'},
-          {label: 'Sales Board', routerLink: 'board'},
-          {label: 'Admin', routerLink: ''}
-        ]);
-      }, 1000)
-        :
-        setTimeout(() => {
-          observer.next([
-            {label: 'My Sales', routerLink: 'my-sales'},
-            {label: 'Sales Board', routerLink: 'board'}
-          ]);
-        }, 1000)
-      ;
-    });
+  constructor(private user: UserService, public router: Router) {
 
   }
 
   public ngOnInit(): void {
+    this.checkUserRole();
+  }
+
+  private checkUserRole(): void {
+    this.asyncTabs = new Observable<NonPrezTab[]>((observer: Observer<NonPrezTab[]>) => {
+      (this.user.roles.indexOf('ROLE_ADMIN') > -1) ?
+        setTimeout(() => {
+          observer.next([
+            {label: 'My Sales', routerLink: 'my-sales'},
+            {label: 'Board', routerLink: 'board'}
+          ]);
+        }, 1000)
+        :
+        setTimeout(() => {
+          observer.next([
+            {label: 'My Sales', routerLink: 'my-sales'},
+            {label: 'Board', routerLink: 'board'}
+          ]);
+        }, 1000)
+      ;
+    });
   }
 
 }

@@ -1,0 +1,12 @@
+.mat-list-item::ng-deep {
+  text-align: center;
+
+  color: black;
+  .mat-list-text{
+    margin-left: 30%;
+  }
+}
+.mat-card::ng-deep {
+  background-color:#2a3258;
+
+}

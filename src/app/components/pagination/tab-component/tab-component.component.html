@@ -1,0 +1,16 @@
+<ng-container     *ngIf="(asyncTabs | async) === null"
+>
+  <div class="container text-center border-bottom-0 loader ">
+    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+
+  </div>
+</ng-container>
+<mat-tab-group mat-align-tabs="center" >
+
+
+  <mat-tab *ngFor="let tab of asyncTabs | async" >
+    <ng-template mat-tab-label><a routerLink="{{tab.routerLink}}">{{tab.label}}</a></ng-template>
+
+  </mat-tab>
+
+</mat-tab-group>

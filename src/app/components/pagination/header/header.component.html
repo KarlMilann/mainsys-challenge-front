@@ -1,0 +1,18 @@
+<header>
+  <mat-toolbar class="mat-toolbar"><h1 class="head-title cursor-pointer" routerLink="/home">Karl-Milann's Challenge</h1>
+    <span class="spacer"></span>
+    <div *ngIf="showTabs">
+      <button (click)="signOut()"  mat-icon-button class="icon" >
+        <mat-icon >highlight_off</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+</header>
+<div *ngIf="showTabs" >
+  <app-tab-component>
+  </app-tab-component>
+</div>
+
+
+

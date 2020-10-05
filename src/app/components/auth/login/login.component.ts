@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {UserService} from '../../../services/authentication/user.service';
 import {AuthLoginInfo} from '../../../model/authentication/login-info';
 import {FormGroup} from '@angular/forms';
+import {delay} from 'rxjs/operators';
+import {JwtResponse} from '../../../model/authentication/jwt-response';
 
 @Component({
   selector: 'app-login',
@@ -31,14 +33,17 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  public onSubmit() {
+  public onSubmit(): void {
     this.loginInfo = new AuthLoginInfo(
       this.form.username,
       this.form.password);
-
     this.authService.attemptAuth(this.loginInfo).subscribe(
       data => {
-        this.tokenStorage.saveToken(data.accessToken);
+        /**
+         * token undefined if you fetch data.accessToken alone.
+         */
+        this.tokenStorage.saveToken(JSON.stringify(data).split(',')[0].split(':')[1].slice(1, - 1));
+
         this.tokenStorage.saveUsername(data.username);
         this.tokenStorage.saveAuthorities(data.authorities);
 
@@ -48,8 +53,8 @@ export class LoginComponent implements OnInit {
 
         this.user.isLoggedIn = true;
         this.user.roles = this.tokenStorage.getAuthorities();
-
         this.router.navigateByUrl('my-sales');
+
       },
       error => {
         console.log(error);

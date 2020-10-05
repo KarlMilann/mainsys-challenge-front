@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {TokenStorageService} from '../../services/authentication/token-storage.service';
-import {UserService} from '../../services/authentication/user.service';
+import {TokenStorageService} from '../../../services/authentication/token-storage.service';
+import {UserService} from '../../../services/authentication/user.service';
 
 
 
@@ -30,9 +30,11 @@ export class HeaderComponent implements OnInit {
 
   public ngOnInit(): void {
     if (this.user.isLoggedIn) {
+
       this.showTabs = true;
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getAuthorities();
+
     }
 
   }
@@ -40,7 +42,7 @@ export class HeaderComponent implements OnInit {
     this.user.isLoggedIn = false;
     this.showTabs = false;
     this.tokenStorage.signOut();
-    window.location.reload();
+    window.location.replace('/login');
   }
 
 }

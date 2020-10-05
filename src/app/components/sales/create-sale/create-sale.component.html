@@ -1,0 +1,29 @@
+<form [formGroup]="frmGrp" (ngSubmit)="onSubmit()" >
+  <div class="container">
+    <div class="row">
+  <mat-form-field>
+    <input required type="text" formControlName="productNameCtrl" matInput placeholder="Enter the product name">
+  </mat-form-field>
+  <mat-form-field>
+    <input required type="number" formControlName="productProfitCtrl" matInput placeholder="How much did you made ?">
+  </mat-form-field>
+  <mat-form-field>
+    <input required type="date" formControlName="dateCtrl" matInput placeholder="Date">
+  </mat-form-field>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div [hidden]="!checkAllControls()" class="alert alert-danger">
+      Make sure you have filled all the fields
+    </div>
+  </div>
+
+  <button [disabled]="checkAllControls()"
+  class="btn btn-success" type="submit" [mat-dialog-close]="true">
+    Save
+  </button>
+</form>
+<div class="row justify-content-center">
+  <ngb-alert (close)="closedAlert=true" *ngIf="!closedAlert" [type]="'danger'">Error while adding sale
+  </ngb-alert>
+</div>

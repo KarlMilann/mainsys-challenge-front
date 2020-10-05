@@ -1,0 +1,92 @@
+<mat-list>
+  <div class="container ">
+    <div class="row justify-content-between header-sales">
+    <div class="col-3">
+    <h2 class="text-center">Pseudo : {{user?.username}}</h2>
+      <h3 class="text-center">Total Profit : {{user?.totalProfit}}</h3>
+  </div>
+  <div class="col-1">
+    <button mat-mini-fab class="icon" (click)="saleCreatorOverview()">
+    <mat-icon>add</mat-icon>
+  </button>
+  </div>
+      <div class="col-3">
+        <div class="row">
+          <form (change)="reloadbyDate()" [formGroup]="filterYearGrp">
+            <h3 class="text-center">Filter :</h3>
+            <div class="row">
+          <div class="col">
+        <mat-form-field>
+          <mat-label>minimum year</mat-label>
+          <input  type="date" formControlName="yearToStartFilterCtrl" matInput placeholder="minimum date for filter"  >
+        </mat-form-field>
+          </div>
+            <div class="col">
+            <mat-form-field>
+              <mat-label>maximum year</mat-label>
+              <input  type="date" formControlName="yearToEndFilter" matInput placeholder="maximum date for filter"  >
+            </mat-form-field>
+            </div></div>
+
+          </form>
+          <div class="row justify-content-center mr-3 position-fixed">
+            <ngb-alert (close)="closedAlert=true" *ngIf="dateCompare(filterYearGrp.controls['yearToStartFilterCtrl'].valueChanges)" [type]="'danger'">Minimum date can't be greater than maximum date
+            </ngb-alert>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="container sales-container">
+
+  <mat-list-item *ngFor="let sale of sales" >
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-3">
+    <h3 matLine class="text-left">{{sale.productName}}</h3>
+    <p class="text-left">
+      <span mat-line> {{sale.date}} </span>
+      <span mat-line>profit : {{sale.productProfit}} euros</span>
+    </p>
+        <mat-divider></mat-divider>
+      </div>
+
+    <div class="button col-1">
+    <button  mat-icon-button  (click)="saleEditOverview(sale)">
+      <mat-icon>create</mat-icon>
+    </button>
+    <button mat-icon-button  (click)="saleDeletion(sale)">
+      <mat-icon>delete_forever</mat-icon>
+    </button>
+      <mat-divider></mat-divider>
+    </div>
+    </div>
+  </div>
+
+  </mat-list-item>
+  </div>
+  </div>
+</mat-list>
+
+
+<!--
+<div class="row">
+  <div class="col">
+    <mat-form-field>
+      <mat-label>maximum day</mat-label>
+      <input  type="number" formControlName="dayToEndFilter" matInput placeholder="maximum day for filter" value="{{currentDay}}" >
+    </mat-form-field>
+  </div>
+  <div class="col">
+    <mat-form-field>
+      <mat-label>maximum month</mat-label>
+      <input  type="number" formControlName="monthToEndFilter" matInput placeholder="maximum month for filter" value="{{currentMonth}}" >
+    </mat-form-field>
+  </div>
+  <div class="col">
+    <mat-form-field>
+      <mat-label>maximum year</mat-label>
+      <input  type="number" formControlName="yearToEndFilter" matInput placeholder="maximum year for filter" value="{{currentYear}}" >
+    </mat-form-field>
+  </div>
+</div>-->

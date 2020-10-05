@@ -14,10 +14,11 @@ export class Sale {
   public date: Date;
   public user: User;
 
-  constructor(productName: string, productProfit: number, date: Date, user: User) {
-    this.productName = productName;
-    this.productProfit = productProfit;
-    this.date = date;
-    this.user = user;
+  constructor(productName?: string, productProfit?: number, date?: Date, user?: User) {
+    this.productName = productName || null || '' ;
+    this.productProfit = productProfit || null ;
+    this.date = date || null ;
+    this.user = user || null ;
   }
+
 }

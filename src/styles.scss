@@ -2,6 +2,10 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
 html, body { height: 100%;
-  overflow-y: hidden; /* Hide vertical scrollbar */
-  overflow-x: hidden; /* Hide horizontal scrollbar */}
+  ::-webkit-scrollbar {
+    display: none;
+  }}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

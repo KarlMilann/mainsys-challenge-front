@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <mat-list>
+        <mat-list-item *ngFor="let user of users" class="mt-4">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-9">
+                <mat-card>
+                  <mat-card-title>
+                <h3 matLine class="text-center">{{user?.username}}</h3>
+                  </mat-card-title>
+                  <mat-card-content>
+                <p class="text-center">
+                  <span mat-line>Totalprofit : {{user?.totalProfit}} euros</span>
+
+                </p>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+</div>

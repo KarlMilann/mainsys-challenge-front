@@ -1,9 +1,14 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {TokenStorageService} from './token-storage.service';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../../model/models';
+
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +21,10 @@ import {User} from '../../model/models';
  * example: for getUserByName(username: string),
  * go to UserController in the server side and seek the Get method launched by /users/{username}.
  */
+
+
 export class UserService {
+
   public isLoggedIn = false;
   public roles: string[] = [];
   public id: number;
@@ -27,20 +35,20 @@ export class UserService {
     this.roles = tokenStorage.getAuthorities();
   }
 
-  public setTotalProfit(user: User, profitToadd: number): Observable<Object> {
-    user.totalProfit += profitToadd;
-    return this.http.put(`${this.baseUrl}/update/${user.id}`, user);
+  public getUsers(): Observable<Object> {
+    return this.http.get(`${this.baseUrl}`);
+  }
+
+  public getUserByName(username: string): Observable<Object> {
+    return this.http.get(`${this.baseUrl}/${username}`, httpOptions);
   }
 
   public deleteUser(id: number): Observable<Object> {
     return this.http.delete(`${this.baseUrl}/${id}`, {responseType: 'text'});
   }
 
-  public getFavoriteNotesForUser(id: number): Observable<Object> {
-    return this.http.get(`${this.baseUrl}/favorites/${id}`);
-  }
 
   public getUsersByRole(role: string): Observable<Object> {
-    return this.http.get(`${this.baseUrl}/role/${role}`);
+    return this.http.get(`${this.baseUrl}/role/${role}`, httpOptions);
   }
 }

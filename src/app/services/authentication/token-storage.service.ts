@@ -22,7 +22,7 @@ export class TokenStorageService {
   /**
    * disconnect the user and clear all info stored in local storage
    */
-  public signOut() {
+  public signOut(): void {
     window.localStorage.clear();
   }
 
@@ -31,7 +31,7 @@ export class TokenStorageService {
    * @param token
    */
 
-  public saveToken(token: string) {
+  public saveToken(token: string): void {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.setItem(TOKEN_KEY, token);
   }
@@ -49,7 +49,7 @@ export class TokenStorageService {
    * @param username
    */
 
-  public saveUsername(username: string) {
+  public saveUsername(username: string): void {
     window.localStorage.removeItem(USERNAME_KEY);
     window.localStorage.setItem(USERNAME_KEY, username);
   }
@@ -62,7 +62,7 @@ export class TokenStorageService {
    * save the role of the user into localstorage
    * @param authorities
    */
-  public saveAuthorities(authorities: string[]) {
+  public saveAuthorities(authorities: string[]): void {
     window.localStorage.removeItem(AUTHORITIES_KEY);
     window.localStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
   }
@@ -82,4 +82,5 @@ export class TokenStorageService {
 
     return this.roles;
   }
+
 }

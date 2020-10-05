@@ -1,0 +1,22 @@
+.mat-list-item::ng-deep {
+    text-align: center;
+
+  color: black;
+  .mat-list-text{
+   margin-left: 30%;
+  }
+}
+.icon{
+  color: white;
+  background-color: #2a3258;
+}
+.mr-3 {
+  bottom: 60%;
+}
+.header-sales {
+  max-height: 7rem;
+}
+.sales-container{
+  z-index: -1;
+
+}

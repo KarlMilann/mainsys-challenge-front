@@ -7,7 +7,13 @@ import {JwtResponse} from '../../model/authentication/jwt-response';
 import {AuthLoginInfo} from '../../model/authentication/login-info';
 
 const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
+  headers: new HttpHeaders(
+    {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    'Access-Control-Allow-Headers': 'Content-Type'
+    }
+    )
 };
 @Injectable({
   providedIn: 'root'
@@ -19,6 +25,7 @@ const httpOptions = {
 export class AuthService {
   private loginUrl = `${environment.api}/auth/signin`;
   private signupUrl = `${environment.api}/auth/signup`;
+
   constructor(private http: HttpClient) {
   }
   /**
@@ -26,8 +33,10 @@ export class AuthService {
    * @param credentials
    */
   public attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
+
     return this.http.post<JwtResponse>(this.loginUrl, credentials, httpOptions);
   }
+
 
   /**
    * create a new normal user
@@ -41,7 +50,7 @@ export class AuthService {
    * create a new admin user
    * @param info
    */
-  public signUpAdmin(info: SignUpInfo): Observable<string> {
+  public signUpAdmin(info: SignUpInfo): Observable<any> {
     return this.http.post<string>(`${this.signupUrl}/admin`, info, httpOptions);
   }
 }
